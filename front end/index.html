@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time System Usage Plots</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        .plot {
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Real-Time System Usage Plots</h1>
+    <div class="container">
+        <div class="plot">
+            <h2>Memory Usage</h2>
+            <img id="memory_plot" src="{{ url_for('memory_plot_png') }}" alt="Memory Usage Plot">
+        </div>
+        <div class="plot">
+            <h2>Battery Usage</h2>
+            <img id="battery_plot" src="{{ url_for('battery_plot_png') }}" alt="Battery Usage Plot">
+        </div>
+    </div>
+    
+    <script>
+        setInterval(function() {
+            document.getElementById('memory_plot').src = "{{ url_for('memory_plot_png') }}" + "?" + new Date().getTime();
+            document.getElementById('disk_plot').src = "{{ url_for('disk_plot_png') }}" + "?" + new Date().getTime();
+            document.getElementById('battery_plot').src = "{{ url_for('battery_plot_png') }}" + "?" + new Date().getTime();
+        }, 1000);  // Refresh every second
+    </script>
+</body>
+</html>
